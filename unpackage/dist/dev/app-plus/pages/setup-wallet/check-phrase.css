@@ -1,0 +1,21 @@
+
+.confirm-btn{
+		width:  calc(100% - 1.875rem);
+		position: fixed;
+		bottom: 0;
+}
+.confirm-btn > uni-button{
+		background-color: #1196db !important;
+}
+.secret-phrase-desc{
+		padding-top: 0.3125rem;
+}
+.check-list{
+		padding-top: 1.875rem;
+}
+.check-item{
+		padding-bottom: 1.25rem;
+}
+.check-item > uni-input{
+		margin-top: 0.46875rem;
+}

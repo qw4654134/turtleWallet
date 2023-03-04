@@ -1,0 +1,291 @@
+$color: var(--color);
+
+	/* 白色 */
+	$zy-classic-white: #ffffff;
+
+	/* 黑色 */
+	$zy-classic-black: #222222;
+
+	/* 灰色 */
+	$zy-classic-grey: #999999;
+	$zy-disabled-grey: #BEBEBE;
+	$zy-light-grey: #e9e9e9;
+	$zy-lightest-grey: #f5f5f5;
+
+	.zy_load {
+		overflow: hidden;
+	}
+
+	.zy_load_classic {
+		position: relative;
+		width: 2em;
+		height: 2em;
+		animation-name: classicMode;
+		animation-delay: 0;
+		animation-iteration-count: infinite;
+		animation-timing-function: steps(12);
+		animation-play-state: running;
+		animation-duration: 1.2s;
+	}
+
+	.zy_load_classic_dot {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		color: $color;
+	}
+
+	.zy_load_classic_dot::before {
+		display: block;
+		width: 0.2em;
+		height: 25%;
+		margin: 0 auto;
+		background-color: currentColor;
+		content: "";
+	}
+
+	.zy_load_classic_dot:first-child {
+		transform: rotate(30deg);
+		opacity: 1;
+	}
+
+	.zy_load_classic_dot:nth-child(2) {
+		transform: rotate(60deg);
+		opacity: .9375;
+	}
+
+	.zy_load_classic_dot:nth-child(3) {
+		transform: rotate(90deg);
+		opacity: .875;
+	}
+
+	.zy_load_classic_dot:nth-child(4) {
+		transform: rotate(120deg);
+		opacity: .8125;
+	}
+
+	.zy_load_classic_dot:nth-child(5) {
+		transform: rotate(150deg);
+		opacity: .75;
+	}
+
+	.zy_load_classic_dot:nth-child(6) {
+		transform: rotate(180deg);
+		opacity: .6875;
+	}
+
+	.zy_load_classic_dot:nth-child(7) {
+		transform: rotate(210deg);
+		opacity: .625;
+	}
+
+	.zy_load_classic_dot:nth-child(8) {
+		transform: rotate(240deg);
+		opacity: .5625;
+	}
+
+	.zy_load_classic_dot:nth-child(9) {
+		transform: rotate(270deg);
+		opacity: .5;
+	}
+
+	.zy_load_classic_dot:nth-child(10) {
+		transform: rotate(300deg);
+		opacity: .4375;
+	}
+
+	.zy_load_classic_dot:nth-child(11) {
+		transform: rotate(330deg);
+		opacity: .375;
+	}
+
+	.zy_load_classic_dot:nth-child(12) {
+		transform: rotate(360deg);
+		opacity: .25;
+	}
+
+
+	@keyframes classicMode {
+		0% {
+			transform: rotate(0);
+		}
+
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+
+	.zy_load_fullCircle {
+		text-indent: -9999em;
+		border-style: solid;
+		border-width: 0.3em;
+		border-top-color: $zy-light-grey;
+		border-right-color: $zy-light-grey;
+		border-bottom-color: $zy-light-grey;
+		border-left-color: $color;
+		animation-name: mode;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	.zy_load_semiCircle {
+		text-indent: -9999em;
+		border-style: solid;
+		border-width: 0.3em;
+		border-top-color: transparent;
+		border-right-color: transparent;
+		border-bottom-color: transparent;
+		border-left-color: $color;
+		animation-name: mode;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	.zy_load_mode,
+	.zy_load_mode:after {
+		border-radius: 50%;
+		width: 2em;
+		height: 2em;
+	}
+
+	@keyframes mode {
+		0% {
+			-webkit-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+
+	.zy_load_circle,
+	.zy_load_circle {
+		margin: 3.5em;
+		float: left;
+		width: 1em;
+		height: 1em;
+		border-radius: 50%;
+		position: relative;
+		text-indent: -9999em;
+		animation-name: circleMode;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes circleMode {
+
+		0%,
+		100% {
+			box-shadow: 0 -3em 0 0.2em $color, 2em -2em 0 0 $color,
+				3em 0 0 -0.5em $color, 2em 2em 0 -0.5em $color,
+				0 3em 0 -0.5em $color, -2em 2em 0 -0.5em $color,
+				-3em 0 0 -0.5em $color, -2em -2em 0 0 $color;
+		}
+
+		12.5% {
+			box-shadow: 0 -3em 0 0 $color, 2em -2em 0 0.2em $color,
+				3em 0 0 0 $color, 2em 2em 0 -0.5em $color,
+				0 3em 0 -0.5em $color, -2em 2em 0 -0.5em $color,
+				-3em 0 0 -0.5em $color, -2em -2em 0 -0.5em $color;
+		}
+
+		25% {
+			box-shadow: 0 -3em 0 -0.5em $color, 2em -2em 0 0 $color,
+				3em 0 0 0.2em $color, 2em 2em 0 0 $color,
+				0 3em 0 -0.5em $color, -2em 2em 0 -0.5em $color,
+				-3em 0 0 -0.5em $color, -2em -2em 0 -0.5em $color;
+		}
+
+		37.5% {
+			box-shadow: 0 -3em 0 -0.5em $color, 2em -2em 0 -0.5em $color,
+				3em 0 0 0 $color, 2em 2em 0 0.2em $color,
+				0 3em 0 0 $color, -2em 2em 0 -0.5em $color,
+				-3em 0 0 -0.5em $color, -2em -2em 0 -0.5em $color;
+		}
+
+		50% {
+			box-shadow: 0 -3em 0 -0.5em $color, 2em -2em 0 -0.5em $color,
+				3em 0 0 -0.5em $color, 2em 2em 0 0 $color,
+				0 3em 0 0.2em $color, -2em 2em 0 0 $color,
+				-3em 0 0 -0.5em $color, -2em -2em 0 -0.5em $color;
+		}
+
+		62.5% {
+			box-shadow: 0 -3em 0 -0.5em $color, 2em -2em 0 -0.5em $color,
+				3em 0 0 -0.5em $color, 2em 2em 0 -0.5em $color,
+				0 3em 0 0 $color, -2em 2em 0 0.2em $color,
+				-3em 0 0 0 $color, -2em -2em 0 -0.5em $color;
+		}
+
+		75% {
+			box-shadow: 0 -3em 0 -0.5em $color, 2em -2em 0 -0.5em $color,
+				3em 0 0 -0.5em $color, 2em 2em 0 -0.5em $color,
+				0 3em 0 -0.5em $color, -2em 2em 0 0 $color,
+				-3em 0 0 0.2em $color, -2em -2em 0 0 $color;
+		}
+
+		87.5% {
+			box-shadow: 0 -3em 0 0 $color, 2em -2em 0 -0.5em $color,
+				3em 0 0 -0.5em $color, 2em 2em 0 -0.5em $color,
+				0 3em 0 -0.5em $color, -2em 2em 0 0 $color,
+				-3em 0 0 0 $color, -2em -2em 0 0.2em $color;
+		}
+	}
+
+	.zy_load_transverse:before,
+	.zy_load_transverse:after,
+	.zy_load_transverse {
+		border-radius: 50%;
+		width: 1em;
+		height: 1em;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		-webkit-animation: transverseMode 1.8s infinite ease-in-out;
+		animation-name: transverseMode;
+		animation-iteration-count: infinite;
+		animation-timing-function: ease-in-out;
+	}
+
+	.zy_load_transverse {
+		float: left;
+		margin: -1.5em 4em 3em 4em;
+		position: relative;
+		text-indent: -9999em;
+	}
+
+	.zy_load_transverse:before {
+		left: -3.5em;
+	}
+
+	.zy_load_transverse:after {
+		left: 3.5em;
+		-webkit-animation-delay: 0.32s;
+		animation-delay: 0.32s;
+	}
+
+	.zy_load_transverse:before,
+	.zy_load_transverse:after {
+		content: '';
+		position: absolute;
+		top: 0;
+	}
+
+	@keyframes transverseMode {
+
+		0%,
+		80%,
+		100% {
+			box-shadow: 0 2.5em 0 -1.3em $color;
+		}
+
+		40% {
+			box-shadow: 0 2.5em 0 0 $color;
+		}
+	}
+	
+	.zy_load_text{
+		margin-left: -10rpx;
+	}
