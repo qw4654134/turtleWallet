@@ -171,7 +171,7 @@
 	}
 	.tx-item{
 		padding: 30rpx 0rpx 30rpx 0rpx;
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.tx-icon{
 		width: 45rpx;

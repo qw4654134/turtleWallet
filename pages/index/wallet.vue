@@ -2,24 +2,23 @@
 	<view class="container">
 		<view class="status-bar"></view>
 		<view class="nav-bar">
-			<view class="nav-bar-container">
+			<view class="nav-bar-container flex-row-space-between-center">
 				<view class="nav-bar-left">
 					<view class="wallet-title font-second-title">Turtle Wallet</view>
-					<view class="network-part" @click="showNetworkPop">
+					<view class="network-part flex-row-start-center" @click="showNetworkPop">
 						<view class="network-color" :style="{'--networkColor': current_network.color ? current_network.color : '#6f6b73' }" :animation="network_connect_animation"></view>
 						<view class="network-selector font-desc-gray">{{current_network.network}}</view>
 						<image class="selector-arrow" src="/static/img/expand.png" />
 					</view>
-					
 				</view>
 				<view class="nav-bar-right">
 					<view class="manage-wallet">
 						<wallet-list-popup ref="wallet_list_pop" :pop_title="'Manage wallet'" :wallet_list="wallet_list" :selected_address="current_wallet.address" :show_setup_btn="true" @change="changeWallet">
-							<image class="nav-icon"  src="/static/img/wallet-manage.png"  @click="showWalletListPop"/>
+							<image class="nav-icon flex-column-center-center"  src="/static/img/wallet-manage.png"  @click="showWalletListPop"/>
 						</wallet-list-popup>
 					</view>
-					<view class="scan-qr"><image class="nav-icon"  src="/static/img/scan-qr.png" /></view>
-					<view class="more-func" @click="showWarningModal"><image class="nav-icon"  src="/static/img/more.png" /></view>
+					<view class="scan-qr flex-column-center-center"><image class="nav-icon"  src="/static/img/scan-qr.png" /></view>
+					<view class="more-func flex-column-center-center" @click="showWarningModal"><image class="nav-icon"  src="/static/img/more.png" /></view>
 				</view>
 			</view>
 		</view>
@@ -28,7 +27,7 @@
 			<uni-notice-bar single :text="top_notice_bar_title" :backgroundColor="top_notice_bar_bgcolor" :color="top_notice_bar_color" :showClose="top_notice_bar_show_close" :showGetMore="top_notice_bar_show_more" @click="clickTopNoticeBar" :clickCallback="top_notice_bar_click_callback"></uni-notice-bar>
 		</view>
 		
-		<view class="page-container" style="min-height: 3200rpx;">
+		<view class="page-container">
 			<view class="wallet-card-part" :style="{'--top_notice_bar_height': top_notice_bar_height }">
 				<view class="wallet-card selected-wallet">
 					<view class="wallet-card-line">
@@ -238,9 +237,7 @@
 					});
 					animation.opacity(0.1).step().opacity(1).step();
 					this.network_connect_animation = animation.export();
-					console.log("ani")
 				}, 1000);
-				console.log(this.flicker_networker_timer)
 			},
 			stopFlickerNetWorkerStatus:function(){
 				clearInterval(this.flicker_networker_timer);
@@ -478,13 +475,9 @@
 		/* #endif */
 		width: 100%;
 		height: 80rpx;
-		box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(159, 159, 159, 0.1);
+		box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(159, 159, 159, 0.2);
 	}
 	.nav-bar-container{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
 		padding-left: 30rpx;
 		padding-right: 30rpx;
 	}
@@ -492,9 +485,7 @@
 		
 	}
 	.network-part{
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+		
 	}
 	.network-part > view{
 		margin-right: 10rpx;
@@ -517,6 +508,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
+		align-items: center;
 	}
 	
 	.nav-icon{
@@ -549,7 +541,7 @@
 		padding: 10rpx 25rpx 10rpx 25rpx;
 	}
 	.selected-wallet{
-		background-color: #1196db;
+		background: linear-gradient(to bottom, #0999db, #2eb6ff);
 	}
 	.wallet-card-line{
 		display: flex;
@@ -589,7 +581,7 @@
 	.main-func-list{
 		margin: 15rpx 0rpx 15rpx 0rpx;
 		padding: 30rpx 30rpx 30rpx 30rpx;
-		border: 1rpx solid rgba(159, 159, 159, 0.1);
+		border: 1rpx solid rgba(159, 159, 159, 0.2);
 		border-radius: 15rpx;
 	}
 	.main-func-item{
@@ -598,7 +590,7 @@
 	.boundary{
 		width: 2rpx;
 		height: 35rpx;
-		border-right: 2rpx solid rgba(159, 159, 159, 0.1);
+		border-right: 2rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.main-func-item-icon{
 		width: 40rpx;
@@ -635,7 +627,7 @@
 		align-items: center;
 		margin-top: 20rpx;
 		padding: 0rpx 0rpx 20rpx 0rpx;
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.asset-name{
 		display: flex;
@@ -675,7 +667,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 18rpx;
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.popup-close-area{
 		width: 40rpx;
@@ -690,7 +682,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 30rpx 0rpx 30rpx 0rpx;
-		border-bottom: var(--networkItemBorderWith) solid rgba(159, 159, 159, 0.1);
+		border-bottom: var(--networkItemBorderWith) solid rgba(159, 159, 159, 0.2);
 	}
 	.network-item-left{
 		display: flex;

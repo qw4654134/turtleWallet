@@ -113,7 +113,7 @@
 		margin: 20rpx 0rpx 20rpx 0rpx;
 	}
 	.wmp-selected-wallet{
-		background-color: #1196db;
+		background: linear-gradient(to bottom, #0999db, #2eb6ff);
 	}
 	.wmp-un-selected-wallet{
 		background-color: rgba(80, 80, 80, 0.4);

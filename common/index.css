@@ -108,3 +108,8 @@
 .uni-modal__bd{
 	color: black;
 }
+.form-btn{
+	background-color: #1196db !important;
+	border-radius: 60rpx;
+	color:white;
+}

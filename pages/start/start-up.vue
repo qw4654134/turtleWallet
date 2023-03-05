@@ -3,7 +3,7 @@
 		<view></view>
 		<view class="icon-area flex-column-center-center">
 			<image class="icon" src="/static/img/wallet.png" />
-			<view class="font-first-title">Turtle Wallet</view>
+			<view class="icon-text font-first-title">Turtle Wallet</view>
 		</view>
 		<view></view>
 	</view>
@@ -90,9 +90,18 @@
 
 	.icon-area{
 		margin-top: 300rpx;
+		animation: fadein 2s ease forwards;
+
 	}
 	.icon {
 		width: 300rpx;
 		height: 300rpx;
+	}
+	.icon-text{
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	}
+	@keyframes fadein {
+	    from { opacity: 0; }
+	    to { opacity: 1; }
 	}
 </style>

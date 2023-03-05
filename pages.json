@@ -221,6 +221,28 @@
             }
             
         }
+        ,{
+            "path" : "pages/address-book/address-book",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "Address book",
+                "enablePullDownRefresh": false,
+                "navigationBarBackgroundColor":"#f6f6f6",
+                "backgroundColor": "#f6f6f6"
+            }
+            
+        }
+        ,{
+            "path" : "pages/address-book/add-book",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "Add address book",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor":"#f6f6f6",
+				"backgroundColor": "#f6f6f6"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

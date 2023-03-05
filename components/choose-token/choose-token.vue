@@ -9,10 +9,15 @@
 					<image class="tlp-popup-close-area" mode="widthFix" src="/static/img/close.png" @click="close"></image>
 				</view>
 				<view class="tlp-popup-content-area" >
-					<view class="tlp-asset-item"  @click="change('ETH')">
-						<view class="tlp-asset-name">
-							<image src="/static/img/ETH.png" ></image>
-							<view class="tlp-asset-text font-third-title">ETH</view>
+					<view class="tlp-asset-item flex-row-space-between-center"  @click="change('ETH')">
+						<view class="flex-row-start-center">
+							<view class="tlp-checked-area flex-column-center-center">
+								<image v-if="'ETH' == selected" class="tlp-selected-icon" src="/static/img/right.png"></image>
+							</view>
+							<view class="tlp-asset-name">
+								<image src="/static/img/ETH.png" ></image>
+								<view class="tlp-asset-text font-third-title">ETH</view>
+							</view>
 						</view>
 						<view class="tlp-asset-bal">
 							<view class="tlp-asset-bal-num font-third-title">{{wallet.balance}}</view>
@@ -20,10 +25,15 @@
 						</view>
 					</view>
 					
-					<view class="tlp-asset-item"  v-for="(item,index) in wallet.tokens" @click="change(item.contract_address)">
-						<view class="tlp-asset-name">
-							<view class="tlp-token-default-icon flex-row-center-center">{{item.symbol[0]}}</view>
-							<view class="tlp-asset-text font-third-title">{{item.symbol}}</view>
+					<view class="tlp-asset-item flex-row-space-between-center"  v-for="(item,index) in wallet.tokens" @click="change(item.contract_address)">
+						<view class="flex-row-start-center">
+							<view class="tlp-checked-area flex-column-center-center">
+								<image v-if="item.contract_address == selected" class="tlp-selected-icon" src="/static/img/right.png"></image>
+							</view>
+							<view class="tlp-asset-name">
+								<view class="tlp-token-default-icon flex-row-center-center">{{item.symbol[0]}}</view>
+								<view class="tlp-asset-text font-third-title">{{item.symbol}}</view>
+							</view>
 						</view>
 						<view class="tlp-asset-bal">
 							<view class="tlp-asset-bal-num font-third-title">{{item.balance}}</view>
@@ -50,17 +60,25 @@
 				type:Object,
 				default:[],
 				required:true
+			},
+			init_select:{
+				type:String,
+				required:true
 			}
 		},
 		data() {
 			return {
+				selected: this.init_select
 			};
+		},
+		created() {
 		},
 		methods:{
 			show(){
 				this.$refs.token_list_popup.open("bottom");
 			},
 			change(contract_address){
+				this.selected = contract_address;
 				this.close();
 				this.$emit('change', {
 					contract_address: contract_address
@@ -93,10 +111,6 @@
 		padding: 30rpx 30rpx 30rpx 30rpx;
 	}
 	.tlp-asset-item{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
 		margin-top: 20rpx;
 		padding: 0rpx 0rpx 20rpx 0rpx;
 		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
@@ -126,5 +140,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
+	}
+	.tlp-selected-icon{
+		width: 30rpx;
+		height: 30rpx;
+	}
+	.tlp-checked-area{
+		width: 60rpx;
 	}
 </style>

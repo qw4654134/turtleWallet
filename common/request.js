@@ -1,4 +1,4 @@
-function request({url,method,data={},timeout=5000}) {
+function request({url,method,data={},timeout=10000}) {
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:url,

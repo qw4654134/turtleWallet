@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<view class="tx-list">
-			<z-paging ref="paging" :refresher-enabled="false" :fixed="false" :height="'1200rpx'" :use-page-scroll="false" :loading-more-enabled="true" :default-page-size="20" :to-bottom-loading-more-enabled="true" :loading-more-default-text="load_more_default_text" :loading-more-loading-text="load_more_loading_text" :loading-more-no-more-text="load_more_no_more_text" :loading-more-fail-text="load_more_fail_text" v-model="tx_list" @query="loadTxData" >
+			<z-paging ref="paging" :refresher-enabled="false" :fixed="false" height="700rpx" :use-page-scroll="false" :loading-more-enabled="true" :default-page-size="20" :to-bottom-loading-more-enabled="true" :loading-more-default-text="load_more_default_text" :loading-more-loading-text="load_more_loading_text" :loading-more-no-more-text="load_more_no_more_text" :loading-more-fail-text="load_more_fail_text" v-model="tx_list" @query="loadTxData" >
 			    <view class="tx-item " v-for="(item,index) in tx_list" @click="toTxDetail(item.hash,current_wallet.address)">
 					<view v-if="item.decode_data && item.decode_data.name == 'transfer'" class="flex-row-space-between-center">
 						<view class="tx-item-left flex-row-center-center">
@@ -329,7 +329,7 @@
 	}
 	.tx-item{
 		padding: 30rpx 0rpx 30rpx 0rpx;
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.tx-icon{
 		width: 45rpx;

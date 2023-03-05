@@ -16,16 +16,16 @@
 			<view class="form-item">
 				<view class="form-item-title font-desc-black">To</view>
 				<view class="transfer-form-item to-address">
-					<input class="to-address-input" type="text" name="to_address" >
-					<view class="to-address-func-list">
-						<image class="form-icon"  src="../../static/img/contact.png"></image>
+					<input class="to-address-input" type="text" name="to_address" v-model="to_address">
+					<view class="to-address-func-list flex-row-center-center">
+						<image class="form-icon"  src="../../static/img/contact.png" @click="toAddressBookPage"></image>
 						<image class="form-icon"  src="../../static/img/scan.png"></image>
 					</view>
 				</view>
 			</view>
 			<view class="form-item">
 				<view class="form-item-title font-desc-black">Asset</view>
-				<choose-token ref="token_choose" pop_title="Select Asset" :wallet="current_wallet" @change="changeAsset">
+				<choose-token ref="token_choose" pop_title="Select Asset" :wallet="current_wallet" init_select="ETH" @change="changeAsset">
 					<view class="transfer-form-item asset-selector" @click="showTokenChoose">
 						<view v-if="selected_asset.symbol=='ETH'" class="asset-info" >
 							<image class="asset-icon"  src="../../static/img/ETH.png"></image>
@@ -212,6 +212,7 @@
 					color:"#f6f6f6",
 					etherscan_api:""
 				},
+				to_address:"",
 				selected_asset:{symbol:"ETH",balance:0},
 				current_tab_index : 0,
 				tab_list : ['Set priority','Customize'],
@@ -240,36 +241,10 @@
 			}
 		},
 		onLoad() {
-			//定时获取gas预估数据
-			this.refrush_timer = setInterval(() => {
-				if("loading" == this.gas_estimate_status){
-					return;
-				}
-				let now = new Date().getTime();
-				let time_gap = now - this.refrush_gas_last_time;
-				if(time_gap > this.refrush_gas_gap * 1000){
-					this.gas_estimate_status = "loading";
-					this.getGasInfo().then((res)=>{
-						this.gas_estimate_status = "more";
-						this.refrush_gas_last_time = new Date().getTime();
-					},(res)=>{
-						console.log(res);
-						this.refrush_gas_last_time = new Date().getTime();
-						this.gas_estimate_status = "more";
-					});
-					return;
-				}
-			}, 1000);
-		},
-		onUnload() {
-			clearInterval(this.refrush_timer);
-		},
-		onShow() {
 			if(!AppJs.checkAppInit()){
 				return;
 			}
 			this.current_network = this.network_list[this.global_network_index];
-			
 			//加载当前钱包
 			this.wallet_list = WALLET.getWalletList();
 			if(!this.wallet_list || !(this.wallet_list instanceof Array) || 0 == this.wallet_list.length){
@@ -294,10 +269,41 @@
 				return;
 			}
 			
+			//定时获取gas预估数据
+			this.refrush_timer = setInterval(() => {
+				if("loading" == this.gas_estimate_status){
+					return;
+				}
+				let now = new Date().getTime();
+				let time_gap = now - this.refrush_gas_last_time;
+				if(time_gap > this.refrush_gas_gap * 1000){
+					this.gas_estimate_status = "loading";
+					this.getGasInfo().then((res)=>{
+						this.gas_estimate_status = "more";
+						this.refrush_gas_last_time = new Date().getTime();
+					},(res)=>{
+						console.log(res);
+						this.refrush_gas_last_time = new Date().getTime();
+						this.gas_estimate_status = "more";
+					});
+					return;
+				}
+			}, 1000);
+			
+			//读取address book select
+			uni.$on("select_book",(data)=>{
+				this.to_address = data.address;
+				this.selected_asset = data.asset;
+			});
+		},
+		onUnload() {
+			uni.$off("select_address");
+			clearInterval(this.refrush_timer);
+		},
+		onShow() {
 			//获取链上资产信息
 			this.ether_api = new ETHER_API.etherApi(this.network_list[this.global_network_index]);
 			this.getBalance();
-			
 			//加载tokenlist
 			this.loadTokens();
 		},
@@ -556,6 +562,11 @@
 					}
 				}
 				
+			},
+			toAddressBookPage(){
+				uni.navigateTo({
+					url:"/pages/address-book/address-book"
+				})
 			}
 		}
 	}
@@ -605,7 +616,7 @@
 		align-items: center;
 	}
 	.to-address-input{
-		width: 75%;
+		width: 80%;
 	}
 	.to-address-func-list{
 	}
@@ -661,9 +672,7 @@
 		position: fixed;
 		bottom: 0;
 	}
-	.next-btn > button{
-		background-color: #1196db !important;
-	}
+	
 
 	.popup-container{
 		background-color: #ffffff;
@@ -676,7 +685,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 18rpx;
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.popup-close-area{
 		width: 40rpx;
@@ -701,7 +710,7 @@
 	}
 	.priority-item{
 		padding: 35rpx 0rpx 35rpx 0rpx;
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.last-priority-item{
 		border-bottom: 0rpx;
@@ -743,7 +752,7 @@
 		padding: 20rpx 0rpx 20rpx 0rpx;
 	}
 	.payment-item-border{
-		border-bottom: 1rpx solid rgba(159, 159, 159, 0.1);
+		border-bottom: 1rpx solid rgba(159, 159, 159, 0.2);
 	}
 	.payment-title{
 		width: 30%;
