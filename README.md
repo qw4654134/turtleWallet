@@ -1,15 +1,15 @@
-# Turtle wallet
+# hello-i18n
 
-## Experience link
-http://129.226.84.250/wallet.html
+# en
 
-## Description
-A projct of crypto wallet, which is base on ethers.js and uni-app. So it can be deployed across platforms.
+A demo project for uni-app globalization
 
-It currently only supports assets on Ethereum.
+This template include uni-framework, manifest.json, pages.json, tabbar, Page, Component, API
 
-Don't use the wallet to manage your assets in main network.It's still being tested.
 
-If you are in China, please use VPN.
+# zh-hans
 
-Hope u have a nice experience!
+uni-app 国际化演示
+
+包含 uni-framework、manifest.json、pages.json、tabbar、页面、组件、API
+
