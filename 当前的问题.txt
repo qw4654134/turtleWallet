@@ -1,6 +1,1 @@
-getApp()全局变量在template引用报错的问题，{{network_list[global_network_index].network}} ，直接访问页面会报错，因为全局变量没有初始化  done
-发起的账单未在本地记录和跟踪 done
-guest mode场景化易进入 done
-transaction list没有加载效果，以及列表下拉刷新没做 done
-PIN加密问题 done
-未连接到ETH节点的交互问题 done
+
