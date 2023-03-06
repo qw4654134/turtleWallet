@@ -77,7 +77,7 @@
 			},
 			showGuestModePop: function(){
 				uni.showModal({
-					content:"You'll experience this App with a sample wallet in test network",
+					content:"You'll experience this App with sample data in test network",
 					confirmText:"Go on",
 					success: function (res) {
 						if (res.confirm) {

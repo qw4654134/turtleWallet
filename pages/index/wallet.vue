@@ -425,6 +425,7 @@
 				let ethers_api = new ETHER_API.etherApi(this.current_network);
 				for (let token of list) {
 					let bal = await ethers_api.getContractAssetBalance(token.contract_address,token.abi,this.current_wallet.address,token.decimal);
+					console.dir(bal)
 					if(bal){
 						token.balance = Number(bal).toFixed(8);
 						let price = await PRICEQUERY.getPrice(token.symbol+"USDT");

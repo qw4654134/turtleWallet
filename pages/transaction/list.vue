@@ -3,8 +3,8 @@
 		<view class="wallet-info ">
 			<view class="flex-column-start-center">
 				<image class="asset-icon"  src="/static/img/ETH.png"></image>
-				<view class="asset-balance font-second-title">{{current_wallet.balance}}</view>
-				<view class="asset-usd-worth font-desc-gray">$ {{current_wallet.usd_worth}}</view>
+				<view class="asset-balance font-second-title">{{balance}}</view>
+				<view class="asset-usd-worth font-desc-gray">$ {{usd_worth}}</view>
 			</view>
 			<view class="func-list flex-row-space-between-center">
 				<navigator class="func-item flex-column-start-center" open-type="navigate" url="/pages/transfer/transfer">
@@ -99,6 +99,9 @@
 					"usd_worth":"__",
 					"tokens":[]
 				},
+				balance:"__",
+				usd_worth:"__",
+				token_info : {balance: "__",usd_worth: "__"},
 				tx_list:[],
 				filter_contract_address:"",
 				filter_token:"",
@@ -151,21 +154,58 @@
 				}
 				this.current_wallet = wallet;
 				
+				if(!this.filter_contract_address){
+					this.loadEthBal();
+				}else{
+					this.loadTokenBal();
+				}
+				
+				
+			},
+			loadEthBal : async function(){
 				//获取链上资产信息
-				let ether_api = new ETHER_API.etherApi(this.network_list[this.global_network_index]);
-				let balance = await ether_api.getBalance(this.current_wallet.address);
-				if(!balance){
-					this.current_wallet.balance = "__";
-					this.current_wallet.usd_worth = "__";
+				let ether_api = new ETHER_API.etherApi(this.current_network);
+				let bal = await ether_api.getBalance(this.current_wallet.address);
+				if(bal){
+					this.current_network.balance = Number(bal).toFixed(8);
+					let price = await PRICEQUERY.getPrice("ETHUSDT");
+					if(!price){
+						this.current_network.usd_worth = "__";
+					}else{
+						this.current_network.usd_worth = (Number(this.current_network.balance) * Number(price)).toFixed(2);
+					}
+				}else{
+					this.current_network.balance = "__";
+					this.current_network.usd_worth = "__";
+				}
+				this.balance = this.current_network.balance;
+				this.usd_worth = this.current_network.usd_worth;
+				return true;
+			},
+			loadTokenBal : async function(){
+				//获取链上资产信息
+				let token = TOKEN.getToken(this.filter_contract_address);
+				if(!token){
 					return false;
 				}
-				this.current_wallet.balance = Number(balance).toFixed(8) ;
-				let price = await PRICEQUERY.getPrice("ETHUSDT");
-				if(!price){
-					this.current_wallet.usd_worth = "__";
+				let ether_api = new ETHER_API.etherApi(this.current_network);
+				
+				let bal = await ether_api.getContractAssetBalance(token.contract_address,token.abi,this.current_wallet.address,token.decimal);
+				if(bal){
+					token.balance = Number(bal).toFixed(8);
+					let price = await PRICEQUERY.getPrice(token.symbol+"USDT");
+					if(!price){
+						token.usd_worth = "__";
+					}else{
+						token.usd_worth = (Number(token.balance) * Number(price)).toFixed(2);
+					}
 				}else{
-					this.current_wallet.usd_worth = (Number(balance) * Number(price)).toFixed(2);
+					token.balance = "__";
+					token.usd_worth = "__";
 				}
+				this.balance = token.balance;
+				this.usd_worth = token.usd_worth;
+				this.token_info = token;
 				return true;
 			},
 			loadTxData: async function(page,page_size){

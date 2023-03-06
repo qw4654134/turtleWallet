@@ -67,7 +67,7 @@
 		methods: {
 			formSubmit(e){
 				if("Next" == this.btn_text){
-					this.getContractInfo(e.detail.value.contract_address);
+					this.getContractInfo(e.detail.value.contract_address).then(function(res){},function(res){console.log(res);uni.hideLoading();});
 					
 				}else if("Add Token" == this.btn_text){
 					this.addToken();
