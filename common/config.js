@@ -4,7 +4,7 @@ export default {
 		"eth":{
 			"default_net":"Goerli Test Network",
 			"net_list":[
-				{"network":"Ethereum Main  Network","url":"https://mainnet.infura.io/v3/8650610ca2224aaaa2fbcf3b7e47b445","etherscan_api":"https://api.etherscan.io/api","color":"#1ceba6"},
+				{"network":"Ethereum Main Network","url":"https://mainnet.infura.io/v3/8650610ca2224aaaa2fbcf3b7e47b445","etherscan_api":"https://api.etherscan.io/api","color":"#1ceba6"},
 				{"network":"Goerli Test Network","url":"https://goerli.infura.io/v3/8650610ca2224aaaa2fbcf3b7e47b445","etherscan_api":"https://api-goerli.etherscan.io/api","color":"#6f6b73"}
 			]
 		}

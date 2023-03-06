@@ -44,8 +44,8 @@
 					<view>Amount</view>
 					<view class="balance font-desc-gray-little" style="font-weight: 500;">Balance : {{selected_asset.balance}}{{selected_asset.symbol}}</view>
 				</view>
-				<view class="transfer-form-item amount-input-part">
-					<input class="amount-input" type="digit" name="amount">
+				<view class="transfer-form-item amount-input-part" :animation = "amount_item_animation">
+					<input class="amount-input" type="digit" name="amount" v-model="amount" @blur="checkAmount">
 					<view class="amount-input-right">
 						<view class="font-desc-gray">{{selected_asset.symbol}}</view>
 					</view>
@@ -213,6 +213,7 @@
 					etherscan_api:""
 				},
 				to_address:"",
+				amount:null,
 				selected_asset:{symbol:"ETH",balance:0},
 				current_tab_index : 0,
 				tab_list : ['Set priority','Customize'],
@@ -237,7 +238,8 @@
 				refrush_gas_countdown:0,//刷新gas费的倒计时
 				refrush_gas_last_time:0,//上一次刷新gas费的时间
 				refrush_gas_gap:10,//刷新gas费的时间间隔,单位 s
-				gas_fee_item_animation:{}
+				gas_fee_item_animation:{},
+				amount_item_animation:{}
 			}
 		},
 		onLoad() {
@@ -376,9 +378,32 @@
 			closeConfirmPaymentPopup(){
 				this.$refs.confirm_payment_popup.close();
 			},
+			checkAmount(){
+				//在测试网中限制一次只能转账不大于0.01的ETH
+				if("Goerli Test Network"== this.current_network.network && "ETH" == this.selected_asset.symbol && this.amount > 0.01){
+					uni.showModal({
+						title:"Warning",
+						content:"In order to allow other users to continue to experience, you cannot transfer more than 0.01 ETH",
+						showCancel:false,
+						confirmText:'Got it',
+						success : (res) => {
+							//动画
+							var animation = uni.createAnimation({
+							    duration: 1000,
+							    timingFunction: 'ease',
+							});
+							animation.opacity(0.2).step().opacity(1).step();
+							this.amount_item_animation = animation.export();
+							this.amount = 0.01;
+						}
+					});
+					return false;
+				}
+				return true;
+			},
 			formSubmit(e){
 				var form_data = {};
-				form_data.to_address = e.detail.value.to_address;
+				form_data.to_address = String(e.detail.value.to_address).trim() ;
 				form_data.amount = e.detail.value.amount;
 				form_data.gas_price =  this.gas_price;
 				form_data.gas =  this.gas_limit;
@@ -394,7 +419,10 @@
 				//进行表单检查
 				var checkRes = graceChecker.check(form_data, rule);
 				if(!checkRes){
-					uni.showToast({ title: graceChecker.error, icon: "none" });
+					uni.showToast({ title: graceChecker.error, icon: "none" , duration:2500});
+					return false;
+				}
+				if(!this.checkAmount()){
 					return false;
 				}
 				form_data.eth_amount = e.detail.value.amount;

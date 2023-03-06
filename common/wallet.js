@@ -53,6 +53,11 @@ export default{
 		if(!wallet){
 			return false;
 		}
+		var reg = new RegExp('^0x[0-9a-fA-F]{40}$');
+		if(!reg.test(wallet.address)){
+			console.log("地址格式有误:"+ wallet.address);
+			return false;
+		}
 		//重复的钱包就更新
 		for (var i = 0; i < wallet_list.length; i++) {
 			if(String(wallet_list[i].address).toLowerCase()  == String(wallet.address).toLowerCase()){
